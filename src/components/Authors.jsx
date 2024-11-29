@@ -4,7 +4,7 @@ import { useState } from "react";
 import { ALL_AUTHORS, UPDATE_AUTHOR } from "../queries";
 
 const Authors = (props) => {
-  const [name, setName] = useState('');
+  const [name, setName] = useState(null);
   const [birthyear, setBirthyear] = useState('');
 
   const result = useQuery(ALL_AUTHORS);
@@ -54,7 +54,14 @@ const Authors = (props) => {
       <h3>Set bithyear</h3>
       <form onSubmit={submit}>
         <div>
-          name <input value={name} onChange={({ target }) => setName(target.value)} />
+          <select 
+            value={name ? name : authors[0]}
+            onChange={({ target }) => setName(target.value)}
+          >
+            {authors.map(a => 
+              <option key={a.name} value={a.name}>{a.name}</option>
+            )}
+          </select>
         </div>
         <div>
           born <input value={birthyear} onChange={({ target }) => setBirthyear(target.value)} />
