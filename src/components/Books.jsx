@@ -5,8 +5,12 @@ import { ALL_BOOKS } from "../queries";
 const Books = (props) => {
   const result = useQuery(ALL_BOOKS);
 
+  if (!props.show) {
+    return null;
+  }
+
   if (result.loading) {
-    return null
+    return <div>Loading...</div>
   }
 
   const books = result.data.allBooks;
